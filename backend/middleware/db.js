@@ -15,4 +15,3 @@ export async function connectDB() {
 }
 
 
-export { default as User } from "../models/user.js";
