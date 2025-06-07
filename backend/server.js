@@ -1,9 +1,10 @@
 import express from "express"
 import cors from 'cors';
 import dotenv from 'dotenv';
-// import promptRoutes from './routes/prompt.js';
+import promptRoutes from './routes/prompt.js';
 import userRoutes from './routes/user.js';
 import { connectDB } from "./middleware/db.js";
+import { authenticateToken } from './middleware/auth.js';
 
 dotenv.config();
 const app = express();
@@ -26,7 +27,7 @@ app.get("/", (req, res) => {
     res.send("well basic setup for now");
 })
 app.use('/api/user', userRoutes);
-// app.use('/api/learning', promptRoutes);
+app.use('/api/learning', authenticateToken, promptRoutes);
 app.listen(3000, () => {
     console.log("listening on 3000")
 })
